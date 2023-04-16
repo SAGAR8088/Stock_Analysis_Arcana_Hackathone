@@ -6,18 +6,24 @@ import pandas_datareader as data
 import tensorflow as tf
 import yfinance as yf
 from keras.models import load_model
+import datetime
+
+st.title('Stock Analysis')
+start_date = st.date_input('Enter Start Date', value=datetime.date(2012, 1, 1))
+end_date = st.date_input('Enter End Date', value=datetime.date(2022, 1, 1))
+
+if start_date < end_date:
+    st.success('Start date: `{}`\n\nEnd date:`{}`'.format(start_date, end_date))
+else:
+    st.error('Error: End date must fall after start date.')
+
+user_input = st.text_input('Enter Stock Ticker', 'AAPL')
+df = yf.download(user_input, start=start_date, end=end_date)
+
+st.subheader('Data from {} - {}'.format(start_date, end_date))
+st.write(df.describe())
 
 
-start='2012-01-01'
-end='2022-01-01'
-
-st.title('stock Analysis')
-
-user_input = st.text_input('Enter Stock Ticker' , 'AAPL' )
-df = yf.download(user_input, start, end)
-
-st.subheader('Data from 2012 - 2022')
-st.write(df.describe()) 
 
 st.subheader( 'Closing Price vs Time chart')
 fig = plt.figure(figsize =(12,6))
