@@ -63,7 +63,13 @@ for i in range(100, data_training_array.shape[0]):
     
 x_train, y_train = np.array(x_train), np.array(y_train)
 
-model = load_model('keras_model.h5')
+#model = load_model('keras_model.h5')
+try:
+    model = load_model('keras_model.h5')
+except FileNotFoundError:
+    st.error("Model file not found. Please make sure the file path is correct.")
+except:
+    st.error("An error occurred while loading the model.")
 
 past_100_days = data_training.tail(100)
 final_df = past_100_days.append(data_testing, ignore_index=True)
