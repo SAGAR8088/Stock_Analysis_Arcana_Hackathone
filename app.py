@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pandas_datareader as data
 import tensorflow as tf
 import yfinance as yf
-from tensorflow.keras.models import load_model
+from keras.models import load_model
 
 
 start='2012-01-01'
